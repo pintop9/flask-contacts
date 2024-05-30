@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
   end
   config.vm.provision "shell", inline: <<-SHELL
     apt-get updates
-    apt-get install -y openjdk-11-jdk git docker.io
+    apt-get install -y openjdk-11-jdk git docker.io dos2unix
     sudo usermod -aG docker vagrant
     systemctl start docker
     systemctl enable docker
@@ -24,5 +24,10 @@ Vagrant.configure("2") do |config|
     systemctl start jenkins
     systemctl enable jenkins
     ufw allow 8080
+  SHELL
+
+  config.vm.provision "shell", inline: <<-SHELL
+    dos2unix /vagrant/run_containers.sh
+    su - vagrant -c 'bash /vagrant/run_containers.sh'
   SHELL
 end
