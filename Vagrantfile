@@ -16,6 +16,7 @@ Vagrant.configure("2") do |config|
     systemctl start docker
     systemctl enable docker
     systemctl restart docker
+    bash run_containers.sh
 
     curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
     echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | tee /etc/apt/sources.list.d/jenkins.list > /dev/null
@@ -24,10 +25,6 @@ Vagrant.configure("2") do |config|
     systemctl start jenkins
     systemctl enable jenkins
     ufw allow 8080
-  SHELL
 
-  config.vm.provision "shell", inline: <<-SHELL
-    dos2unix /vagrant/run_containers.sh
-    su - vagrant -c 'bash /vagrant/run_containers.sh'
   SHELL
 end
