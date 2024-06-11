@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web2-mssql
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+      app: contacts-web-app
+  template:
+    metadata:
+      labels:
+        app: contacts-web-app  
+    spec:
+      containers:
+      - name: contacts-web-app
+        image: pintop9/contacts-web-mssql-he
+        ports:
+        - containerPort: 1443
+
+

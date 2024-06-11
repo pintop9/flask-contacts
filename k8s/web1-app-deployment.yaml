@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web1-mysql
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+      app: contacts-web-app
+  template:
+    metadata:
+      labels:
+        app: contacts-web-app  
+    spec:
+      containers:
+      - name: contacts-web-app
+        image: pintop9/contacts-web-mysql-es
+        ports:
+        - containerPort: 3306
+
